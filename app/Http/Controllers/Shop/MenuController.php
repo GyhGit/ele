@@ -94,8 +94,6 @@ class MenuController extends BaseController
             if($file){
                 //有图片删除原来的图片
                 @unlink($menu->goods_img);
-//                $data['goods_img']=$request->file("img")->store("menu","image");
-
                 $data['goods_img']=$file->store("menu","image");
             }
 
