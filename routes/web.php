@@ -30,6 +30,23 @@ Route::domain('shop.ele.com')->namespace('Shop')->group(function (){
     Route::any("shop/shops/apply","ShopsController@apply")->name("shop.shops.apply");
     //修改个人密码
     Route::any("shop/user/edit","UserController@edit")->name("shop.user.edit");
+    //菜品分类首页
+    Route::get("shop/menu/index","MenuCategoryController@index")->name("shop.menu.index");
+    //菜品分类添加
+    Route::any("shop/menu/add","MenuCategoryController@add")->name("shop.menu.add");
+    //菜品分类编辑
+    Route::any("shop/menu/edit/{id}","MenuCategoryController@edit")->name("shop.menu.edit");
+    //菜品分类删除
+    Route::get("shop/menu/del/{id}","MenuCategoryController@del")->name("shop.menu.del");
+    //菜品首页
+    Route::get("shop/dishis/index","MenuController@index")->name("shop.dishis.index");
+    //菜品添加
+    Route::any("shop/dishis/add","MenuController@add")->name("shop.dishis.add");
+    //菜品编辑
+    Route::any("shop/dishis/edit/{id}","MenuController@edit")->name("shop.dishis.edit");
+    //菜品删除
+    Route::get("shop/dishis/del/{id}","MenuController@del")->name("shop.dishis.del");
+
 
 });
 //Admin平台

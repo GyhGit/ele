@@ -62,14 +62,7 @@ class ShopCategoryController extends BaseController
         }
 
     }
-    //删除分类
-    public function del($id)
-    {
-        $shop_category = ShopCategory::find($id);
-        $img = $shop_category['img'];
-        unlink($img);
-        if ($shop_category->delete()) {
-            return redirect("/admin/shop_category/index");
-        }
-    }
+
+
+
 }

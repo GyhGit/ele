@@ -1,6 +1,9 @@
 @extends("shop.layouts.main")
 @section("title","修改密码")
 @section("content")
+    <div class="box-header with-border" >
+        <i class="box-title" ><font size="6" color="#8a2be2" >修改个人密码</font></i>
+    </div>
 
 
 

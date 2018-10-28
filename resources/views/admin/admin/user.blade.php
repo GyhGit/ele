@@ -8,6 +8,7 @@
             <tr>
                 <td>账户编号</td>
                 <td>用户名称</td>
+                <td>店铺名称</td>
                 <td>用户邮箱</td>
                 <td>操作</td>
             </tr>
@@ -15,12 +16,19 @@
                 <tr>
                     <td>{{$user->id}}</td>
                     <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
 
+                    <td>
+                        @if($user->shop){{$user->shop->shop_name}}@endif
+                    </td>
+                    <td>{{$user->email}}</td>
 
                     <td>
                         {{--<a href="#" class="btn btn-success">编辑</a>--}}
                         <a href="{{route("admin.admin.default",$user->id)}}" class="btn btn-warning">重置密码</a>
+                        @if(!$user->shop)
+{{--                            {{route('admin.shop.add')}}--}}
+                            <a href="#" class="btn btn-success">添加店铺</a>
+                        @endif
                         <a href="{{route("admin.admin.delete",$user->id)}}" class="btn btn-danger">删除</a>
 
                     </td>
