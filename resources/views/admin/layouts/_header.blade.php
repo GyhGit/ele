@@ -23,7 +23,7 @@
                         <li><a href="{{route("admin.shop_category.index")}}">店铺分类</a></li>
                         <li><a href="{{route("admin.admin.user")}}">商家信息</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="{{route("admin.activity.index")}}">活动列表</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{route("admin.admin.main")}}">管理员列表</a></li>
                     </ul>

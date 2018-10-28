@@ -73,10 +73,8 @@
                 <td>{{$menu->rating_count}}</td>
                 <td>{{$menu->satisfy_count}}</td>
                 <td>{{$menu->satisfy_rate}}</td>
-                <td>
-{{--                    {{$menu->goods_img}}</td>--}}
-                {{--<img src="/{{$menu->goods_img}}" height="60" alt="">--}}
-                    <img src="/{{$menu->goods_img}}" height="60">
+                <td><img src="{{$menu->goods_img}}?x-oss-process=image/resize,m_fill,w_60,h_60"></td>
+
                 <td>
                     <?php if ($menu['status']==1)
                     {echo "上架";}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Models\Activity;
 use App\Models\ShopCategory;
 use App\Models\Shops;
 use Illuminate\Http\Request;
@@ -43,4 +44,22 @@ class ShopsController extends BaseController
         $categories=ShopCategory::all();
         return view("shop.shops.apply",compact("categories"));
     }
+
+    public function index()
+    {
+      $activitys=Activity::all();
+
+      return view("shop.activity.index",compact("activitys"));
+    }
+
+    public function check($id)
+    {
+        $activity=Activity::find($id);
+
+        return view("shop.activity.check",compact("activity"));
+
+
+
+    }
+
 }

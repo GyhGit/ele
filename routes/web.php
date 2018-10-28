@@ -46,6 +46,13 @@ Route::domain('shop.ele.com')->namespace('Shop')->group(function (){
     Route::any("shop/dishis/edit/{id}","MenuController@edit")->name("shop.dishis.edit");
     //菜品删除
     Route::get("shop/dishis/del/{id}","MenuController@del")->name("shop.dishis.del");
+    //图片
+    Route::any("shop/dishis/upload","MenuController@upload")->name("shop.dishis.upload");
+
+    //活动
+    //首页
+    Route::get("shop/activity/index","ShopsController@index")->name("shop.activity.index");
+    Route::any("shop/activity/check/{id}","ShopsController@check")->name("shop.activity.check");
 
 
 });
@@ -91,7 +98,15 @@ Route::domain('admin.ele.com')->namespace('Admin')->group(function () {
     //管理员删除
     Route::get("admin/admin/rm/{id}","AdminController@rm")->name("admin.admin.rm");
 
-
+    //活动
+    //首页
+    Route::get("admin/activity/index","ActivityController@index")->name("admin.activity.index");
+    //添加
+    Route::any("admin/activity/add","ActivityController@add")->name("admin.activity.add");
+    //编辑
+    Route::any("admin/activity/edit/{id}","ActivityController@edit")->name("admin.activity.edit");
+    //删除
+    Route::get("admin/activity/del/{id}","ActivityController@del")->name("admin.activity.del");
 
 
 });
