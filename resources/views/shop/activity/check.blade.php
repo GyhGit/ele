@@ -11,7 +11,7 @@
             {{--<div class="col-sm-10">--}}
                 {{--<input type="text" name="content" value="{{$activity->content}}">--}}
                 {{--<script id="container" name="content" type="text/plain">{{$activity->content}}</script>--}}
-                <textarea class="form-control" rows="38" >
+                <textarea class="form-control" rows="38" disabled>
                     {{$activity->content}}
                 </textarea>
             {{--</div>--}}

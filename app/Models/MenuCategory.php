@@ -32,10 +32,15 @@ class MenuCategory extends Model
         'name', 'type_accumulation', 'shop_id','description','is_selected',
     ];
 
+    public function menus(){
+        return $this->hasMany(Menu::class,"category_id");
+    }
+
     //读取菜品
     public function menu_category()
     {
      return  $this->belongsTo(Shops::class,"shop_id") ;
     }
+
 
 }

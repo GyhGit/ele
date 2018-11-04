@@ -40,7 +40,9 @@ class MenuController extends BaseController
             $query->where("goods_price", "<=", $maxPrice);
         }
         //得到所有数据
-        $menus = $query->paginate(2);
+        $menus =$query->where("shop_id",Auth::user()->shop->id)->paginate(3);
+
+//        $menus = $query->paginate(2);
         //引入视图分配数据
         $cate = MenuCategory::all();
         return view("shop.dishis.index", compact("cate", "menus", "url"));
@@ -66,6 +68,7 @@ class MenuController extends BaseController
             $data = $request->post();
             $data['shop_id'] = Auth::user()->shop->id;
             // $data['goods_img']=$request->file("img")->store("menu");
+
             //添加
             //dd($data);
             Menu::create($data);
@@ -74,7 +77,7 @@ class MenuController extends BaseController
         }
         //显示视图
         //查询所有分类
-        $menus = MenuCategory::all();
+        $menus = MenuCategory::where("shop_id", Auth::user()->shop->id)->get();
         return view("shop.dishis.add", compact("menus"));
 
     }

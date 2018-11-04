@@ -26,4 +26,8 @@ class ShopCategory extends Model
     protected $fillable = [
         'name', 'img', 'status',
     ];
+//    //通过分类找菜品goods_list=====>goodsList
+//    public function goodsList(){
+//        return $this->hasMany(Menu::class,"cate_id");
+//    }
 }

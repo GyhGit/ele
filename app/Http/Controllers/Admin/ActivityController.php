@@ -11,112 +11,62 @@ class ActivityController extends BaseController
 {
 
 
-
-
-
-
     //显示所有活动列表
     public function index(Request $request)
     {
         $url = $request->query();
-        $time =$request->get("time");
+        $time = $request->get("time");
         $keyword = $request->get("keyword");
         //有效期内
         //$date = date('Y-m-d',time());
         $query = Activity::orderBy("id");
-//得到当前时间
-        $date=date('Y-m-d H:i:s', time());
-//判断时间  1 进行 2 结束 3 未开始
-        if( $time == 1 ){
-            $query->where("start_time","<=",$date)->where("end_time",">",$date);
+        //得到当前时间
+        $date = date('Y-m-d H:i:s', time());
+        //判断时间  1 进行 2 结束 3 未开始
+        if ($time == 1) {
+            $query->where("start_time", "<=", $date)->where("end_time", ">", $date);
         }
-        if($time == 2){
-            $query->where("end_time","<",$date);
+        if ($time == 2) {
+            $query->where("end_time", "<", $date);
         }
-        if($time == 3){
-            $query->where("start_time",">",$date);
+        if ($time == 3) {
+            $query->where("start_time", ">", $date);
         }
-//内容搜索
-        if($keyword !== null){
-            $query->where("title","like","%{$keyword}%")->orWhere("content","like","%{$keyword}%");
+        //内容搜索
+        if ($keyword !== null) {
+            $query->where("title", "like", "%{$keyword}%")->orWhere("content", "like", "%{$keyword}%");
         }
 
         $activitys = $query->paginate(2);
 //        dd($date);
-        return view("admin.activity.index", compact("activitys","url"));
+        return view("admin.activity.index", compact("activitys", "url"));
 
     }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //显示活动列表
-//    public function index(Request $request)
-//    {
-//        $url = $request->query();
-//        //引入视图分配数据
-//        $activitys = Activity::paginate(2);
-//        $keyword = $request->get("keyword");
-//        $start_time = $request->get("start_time");
-//        $end_time = $request->get("end_time");
-//        $query = Activity::orderBy("id");
-//        if ($keyword !== null) {
-//            $query->where("title", "like", "%{$keyword}%");
-//        }
-//        if ($start_time !== null) {
-//            $query->where("$start_time", ">=", $start_time);
-//        }
-//        if ($end_time !== null) {
-//            $query->where("$end_time", "<=", $end_time);
-//        }
-////        if( now()< "start_time"){
-////            if("start_time" <= now() and now() <= "end_time"){
-////            echo 1;
-////
-////            }
-////        }
-//        return view("admin.activity.index",compact("activitys","url"));
-//    }
     //活动添加
     public function add(Request $request)
     {
-     if ($request->isMethod("post")){
-          $this->validate($request, [
-             'title' => 'required',
-             "content" => "required",
+        if ($request->isMethod("post")) {
+            $this->validate($request, [
+                'title' => 'required',
+                "content" => "required",
 
-         ]);
+            ]);
 
 //         $id = Auth::user()->id;
 //         //dd($id);
 //         $data['shop_id'] = $id;
-         //添加
-         $data=$request->post();
-         Activity::create($data);
+            //添加
+            $data = $request->post();
+            Activity::create($data);
 //         Activity::create($data);
-         //跳转
-         return redirect()->route("admin.activity.index")->with("success", "活动添加成功");
-     }
-     return view("admin.activity.add");
+            //跳转
+            return redirect()->route("admin.activity.index")->with("success", "活动添加成功");
+        }
+        return view("admin.activity.add");
     }
 
     //活动编辑
@@ -135,7 +85,7 @@ class ActivityController extends BaseController
             $data = $request->post();
             //添加
             if ($activity->update($data)) {
-                return redirect()->route("admin.activity.index")->with("success","修改活动成功");
+                return redirect()->route("admin.activity.index")->with("success", "修改活动成功");
             }
         }
         //跳转
@@ -145,13 +95,12 @@ class ActivityController extends BaseController
     public function del($id)
     {
 
-        $activity=Activity::find($id);
+        $activity = Activity::find($id);
 
         if ($activity->delete()) {
-            return redirect()->route("admin.activity.index")->with("success","删除活动成功");
+            return redirect()->route("admin.activity.index")->with("success", "删除活动成功");
         }
     }
-
 
 
 }
