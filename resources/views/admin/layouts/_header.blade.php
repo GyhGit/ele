@@ -16,18 +16,31 @@
             <ul class="nav navbar-nav">
 
                 <li><a href="#">管理守则</a></li>
+            @foreach(\App\Models\Nav::where("pid",0)->get() as $k1=>$v1)
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">后台管理 <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$v1->name}} <span class="caret"></span></a>
+                {{--@foreach(\App\Models\Nav::where("pid",$v1->id)->get() as $k7=>$v7)--}}
+
                     <ul class="dropdown-menu">
-                        <li><a href="{{route("admin.admin.dispose")}}">店铺申请</a></li>
-                        <li><a href="{{route("admin.shop_category.index")}}">店铺分类</a></li>
-                        <li><a href="{{route("admin.admin.user")}}">商家信息</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{{route("admin.activity.index")}}">活动列表</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{{route("admin.admin.main")}}">管理员列表</a></li>
+                        @foreach(\App\Models\Nav::where("pid",$v1->id)->get() as $k2=>$v2)
+                        <li><a href="{{route($v2->url)}}">{{$v2->name}}</a></li>
+                        @endforeach
+                        {{--<li><a href="{{route("admin.shop_category.index")}}">店铺分类</a></li>--}}
+                        {{--<li><a href="{{route("admin.admin.user")}}">商家信息</a></li>--}}
+                        {{--<li role="separator" class="divider"></li>--}}
+                        {{--<li><a href="{{route("admin.activity.index")}}">活动列表</a></li>--}}
+                        {{--<li role="separator" class="divider"></li>--}}
+                        {{--<li><a href="{{route("admin.admin.main")}}">管理列表</a></li>--}}
+                        {{--<li><a href="{{route("admin.per.index")}}">权限设置</a></li>--}}
+                        {{--<li><a href="{{route("admin.role.index")}}">权限角色</a></li>--}}
                     </ul>
+
+                    {{--@endforeach--}}
                 </li>
+
+            @endforeach
+
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
 

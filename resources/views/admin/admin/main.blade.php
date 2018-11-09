@@ -3,12 +3,13 @@
 
 
 @section("content")
-    <a href="{{route("admin.admin.addition")}}" class="btn btn-info">添加</a>
+    <a href="{{route("admin.admin.add")}}" class="btn btn-info">添加</a>
     <table class="table table-bordered">
         <tr>
             <th>管理员编号</th>
             <th>管理员名称</th>
             <th>管理员邮箱</th>
+
             <th>操作</th>
         </tr>
         @foreach($admins as $admin)

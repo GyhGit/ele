@@ -1,9 +1,9 @@
 @extends("shop.layouts.main")
 @section("title","菜品分类添加")
 @section("content")
-<div class="box-header with-border" >
-    <i class="box-title" ><font size="6" color="#8a2be2" >菜品分类添加</font></i>
-</div>
+    <div class="box-header with-border" >
+        <i class="box-title" ><font size="6" color="#8a2be2" >菜品分类添加</font></i>
+    </div>
 
 
 

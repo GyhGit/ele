@@ -8,9 +8,12 @@ use App\Models\Member;
 use App\Models\Menu;
 use App\Models\Order;
 use App\Models\OrderGood;
+use App\Models\Shops;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Mrgoon\AliSms\AliSms;
 
 class OrderController extends Controller
 {
@@ -155,6 +158,49 @@ class OrderController extends Controller
         //更改用户状态
         $order->status=1;
         $order->save();
+
+
+        //通过订单得到店铺名
+        $shopId=$order->shop_id;
+        //去商户表查出当前的一条 查出当前商铺的用户id
+        $user=Shops::where("id",$shopId)->first()->toArray();
+        //获得用户id
+        $userId=$user['user_id'];
+        //通过用户id找出邮箱
+        $em=User::where("id",$userId)->first()->toArray();
+        //得到用户邮箱
+        $email=$em['email'];
+        //用户名字
+        $name =$em['name'];
+        //
+        $shopName=$name;
+        $to=$email;
+        $subject=$shopName.'订单通知';
+        \Illuminate\Support\Facades\Mail::send(
+            'emails.order',
+            compact("shopName"),
+            function ($message) use($to, $subject) {
+                $message->to($to)->subject($subject);
+            }
+        );
+        //下单成功给用户发短信
+        //得到电话号
+        $tel=$order->tel;
+        //发短信
+        $code="最让你舍不得的平台ele的".$name;
+        //4. 把验证码发给手机 用到阿里云短信服务
+        $config = [
+
+            'access_key' => env("ALIYUNU_ACCESS_ID"),
+            'access_secret' => env("ALIYUNU_ACCESS_KEY"),
+            'sign_name' => '个人生活记录',
+        ];
+        $sms=New AliSms();
+//        dd($tel);
+
+        $response = $sms->sendSms($tel, "SMS_150575336", ['name'=> $code], $config);
+        //dd($response);
+
         return [
             'status'=>'true',
             'message'=>"支付成功"

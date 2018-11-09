@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class MenuController extends BaseController
+class MenuController extends MainController
 {
     //菜品显示
     //显示所有菜品

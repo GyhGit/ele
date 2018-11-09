@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Shop\BaseController;
 use App\Models\Admin;
+//use App\Models\Shops;
 use App\Models\Shops;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,6 +11,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
+
 
 class AdminController extends BaseController
 {
@@ -32,13 +35,28 @@ class AdminController extends BaseController
     //处理
     public function audit($id)
     {
+        $one = Shops::find($id);
+//        $user =User::where("id",$one->user_id)->first();
         //判断状态
         //dd($data);
         DB::update('update shops set status = 1 where id =:id', [$id]);
+        //发邮箱通知
+        $shopName=$one->shop_name;
+        $to ='1794637379@qq.com';//收件人
+        $subject = $shopName.' 审核通知';//邮件标题
+        \Illuminate\Support\Facades\Mail::send(
+            'emails.shop',//视图
+            compact("shopName"),//传递给视图的参数
+            function ($message) use($to, $subject) {
+                $message->to($to)->subject($subject);
+            }
+        );
+
         //跳转
         return redirect()->route("admin.admin.dispose");
 
     }
+
 
     //禁用处理
     public function forbidden($id)
@@ -162,22 +180,22 @@ class AdminController extends BaseController
     }
 
     //管理员列表添加
-    public function addition(Request $request)
-    {
-        if ($request->isMethod("post")) {
-            $this->validate($request, [
-                "name" => "required|unique:users",
-                "email" => "required",
-                "password" => "required",
-            ]);
-            $data = $request->post();
-            $data['password'] = bcrypt($data['password']);
-
-            Admin::create($data);
-            return redirect()->route("admin.admin.main")->with("success", "添加成功");
-        }
-        return view("admin.admin.addition");
-    }
+//    public function addition(Request $request)
+//    {
+//        if ($request->isMethod("post")) {
+//            $this->validate($request, [
+//                "name" => "required|unique:users",
+//                "email" => "required",
+//                "password" => "required",
+//            ]);
+//            $data = $request->post();
+//            $data['password'] = bcrypt($data['password']);
+//
+//            Admin::create($data);
+//            return redirect()->route("admin.admin.main")->with("success", "添加成功");
+//        }
+//        return view("admin.admin.addition");
+//    }
 
     //管理员列表编辑
     public function redact(Request $request, $id)
@@ -206,18 +224,30 @@ class AdminController extends BaseController
         }
     }
 
+    /**用户添加角色
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
 
+    public function add(Request $request)
+    {
+        if ($request->isMethod("post")) {
+            //接收参数
+            $data = $request->post();
+            $data['possword'] = bcrypt($data['possword']);
 
+            //创建用户
+            $admin = Admin::create($data);
+            //用户添加角色
+            $admin->syncRoles($request->post('role'));
+            return redirect()->route('admin.index')->with('success', '创建' . $admin->name . "成功");
 
+        }
+        //得到所有角色
+        $roles = Role::all();
+        return view('admin.admin.add', compact("roles"));
 
-
-
-
-
-
-
-
-
+    }
 
 
 }

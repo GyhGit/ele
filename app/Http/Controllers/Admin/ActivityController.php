@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Shop\BaseController;
+use App\Http\Controllers\Admin\BaseController;
 use App\Models\Activity;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

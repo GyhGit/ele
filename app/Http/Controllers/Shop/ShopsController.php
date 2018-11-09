@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class ShopsController extends BaseController
+class ShopsController extends MainController
 {
     //店铺申请
     public function apply(Request $request)

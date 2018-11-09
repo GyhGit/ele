@@ -23,11 +23,20 @@
                         <li><a href="{{route("shop.dishis.index")}}">菜品列表</a></li>
                         <li><a href="#">Something else here</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="{{route("shop.order.index")}}">用户订单</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li><a href="{{route("shop.order.day")}}">订单日销售</a></li>
+                        <li><a href="{{route("shop.order.month")}}">订单月销售</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{route("shop.order.cday")}}">菜品日销售</a></li>
+                        <li><a href="{{route("shop.order.cmonth")}}">菜品月销售</a></li>
+                        <li><a href="{{route("shop.order.ctotal")}}">菜品总销售</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{route("shop.event.index")}}">活动列表</a></li>
                     </ul>
                 </li>
+
+
             </ul>
 
 

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class MenuCategoryController extends BaseController
+class MenuCategoryController extends MainController
 {
     public function index()
     {
